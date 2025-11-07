@@ -1,0 +1,68 @@
+# Node.js / Next.js
+node_modules/
+.next/
+out/
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Cache
+.cache/
+.next/cache/
+.vscode/
+.DS_Store
+
+# Supabase
+.supabase/
+supabase/.temp/
+supabase/functions/.netlify/
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*.bak
+*.old
+
+# TypeScript
+*.tsbuildinfo
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+Thumbs.db
+
+# Coverage / Tests
+coverage/
+*.lcov
+jest-cache/
+jest-stare/
+
+# Local databases
+*.sqlite
+*.db
+
+# Uploads / local data
+uploads/
+tmp/
+data/
+
+# Generated files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
