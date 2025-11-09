@@ -11,11 +11,18 @@ type Props = {
 };
 
 export default function VehicleDetailClient({ vehicle }: Props) {
-  const pictures: string[] = vehicle.pictures ?? [];
+  const pictures: string[] = Array.isArray(vehicle.pictures)
+    ? vehicle.pictures
+    : [];
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const mainPicture = pictures[activeIndex] ?? pictures[0] ?? null;
+
+  // 👀 Debug fuerte
+  console.log('Vehicle desde Supabase:', vehicle);
+  console.log('Keys vehicle:', Object.keys(vehicle));
 
   // Cerrar modal con ESC
   useEffect(() => {
@@ -27,27 +34,39 @@ export default function VehicleDetailClient({ vehicle }: Props) {
     return () => window.removeEventListener('keydown', onKey);
   }, [isModalOpen]);
 
-  // Normalización de campos (por ahora sólo por nombre de columna)
-  const km =
-    vehicle.km ??
-    vehicle.Km ??
-    null;
-  const motor =
-    vehicle.Motor ??
-    vehicle.motor ??
-    null;
-  const caja =
+  // 🔧 LEER EN MAYÚSCULA O MINÚSCULA (por si la columna en Postgres es km/motor/etc.)
+  const rawKm = vehicle.Km ?? vehicle.km;
+  const km: number | null =
+    typeof rawKm === 'number'
+      ? rawKm
+      : rawKm
+      ? Number(String(rawKm).replace(/\D/g, ''))
+      : null;
+
+  const motor: string | null = vehicle.Motor ?? vehicle.motor ?? null;
+
+  const caja: string | null =
     vehicle.Caja ??
     vehicle.caja ??
+    vehicle.Transmission ??
+    vehicle.transmission ??
     null;
-  const combustible =
+
+  const combustible: string | null =
     vehicle.Combustible ??
     vehicle.combustible ??
+    vehicle.Fuel ??
+    vehicle.fuel ??
+    vehicle.fuel_type ??
     null;
-  const puertas =
-    vehicle.Puertas ??
-    vehicle.puertas ??
-    null;
+
+  const rawPuertas = vehicle.Puertas ?? vehicle.puertas ?? vehicle.doors;
+  const puertas: number | null =
+    typeof rawPuertas === 'number'
+      ? rawPuertas
+      : rawPuertas
+      ? Number(String(rawPuertas).replace(/\D/g, ''))
+      : null;
 
   return (
     <main className="min-h-screen bg-[#05030a] text-slate-100 px-4 py-8 md:py-10">
@@ -66,7 +85,7 @@ export default function VehicleDetailClient({ vehicle }: Props) {
           {/* ================= IZQUIERDA: GALERÍA ================= */}
           <section className="space-y-4">
             <div className="flex justify-center">
-              {/* CONTENEDOR FIJO: no cambia tamaño al cambiar de foto */}
+              {/* CONTENEDOR FIJO */}
               <div className="relative w-full max-w-[560px] aspect-[4/3] overflow-hidden rounded-xl border border-fuchsia-600/60 bg-black">
                 <AnimatePresence mode="wait">
                   {mainPicture ? (
@@ -107,7 +126,7 @@ export default function VehicleDetailClient({ vehicle }: Props) {
               Asesores 2494-587046 / 2494-541756
             </div>
 
-            {/* Miniaturas con scrollbar custom */}
+            {/* Miniaturas */}
             {pictures.length > 1 && (
               <div className="custom-scrollbar flex gap-2 overflow-x-auto pb-1">
                 {pictures.map((pic, idx) => {
@@ -167,7 +186,9 @@ export default function VehicleDetailClient({ vehicle }: Props) {
               <div>
                 <p className="text-slate-400">Kilometraje</p>
                 <p className="font-semibold">
-                  {km ? `${Number(km).toLocaleString('es-AR')} km` : 'A consultar'}
+                  {km !== null
+                    ? `${km.toLocaleString('es-AR')} km`
+                    : 'A consultar'}
                 </p>
               </div>
               <div>
@@ -188,12 +209,14 @@ export default function VehicleDetailClient({ vehicle }: Props) {
               </div>
               <div>
                 <p className="text-slate-400">Puertas</p>
-                <p className="font-semibold">{puertas ?? '-'}</p>
+                <p className="font-semibold">
+                  {puertas !== null ? puertas : '-'}
+                </p>
               </div>
             </div>
 
             {/* PRECIO */}
-            {vehicle.price && (
+            {vehicle.price != null && (
               <div className="mt-3">
                 <p className="text-xs text-slate-400 uppercase tracking-wide">
                   Precio
@@ -212,7 +235,7 @@ export default function VehicleDetailClient({ vehicle }: Props) {
               <motion.a
                 whileTap={{ scale: 0.97 }}
                 href={`https://wa.me/5492494XXXXXX?text=Hola! Estoy interesado en el ${encodeURIComponent(
-                  vehicle.title
+                  vehicle.title,
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -247,7 +270,9 @@ export default function VehicleDetailClient({ vehicle }: Props) {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
+              onClick={(e: React.MouseEvent<HTMLDivElement>) =>
+                e.stopPropagation()
+              }
             >
               <div className="relative w-[80vw] max-w-4xl aspect-[16/9] md:w-[70vw]">
                 <Image

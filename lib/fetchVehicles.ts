@@ -48,43 +48,57 @@ function extractVehicleDetails(attributes: any[]): {
   let Puertas: number | null = null;
 
   for (const attr of attributes || []) {
-    const key = (attr.id || attr.name || '').toString().toUpperCase();
-    const value: string = (attr.value_name ?? '').toString();
+    const id = (attr.id || '').toUpperCase();
+    const name = (attr.name || '').toUpperCase();
+    const raw = (attr.value_name ?? '').toString();
 
-    if (!brand && (key.includes('BRAND') || key.includes('MARCA'))) {
-      brand = value || null;
+    // MARCA
+    if (!brand && id === 'BRAND') {
+      brand = raw || null;
     }
 
-    if (!year && (key.includes('YEAR') || key.includes('AÑO') || key.includes('ANO'))) {
-      const parsed = parseInt(value, 10);
-      year = Number.isNaN(parsed) ? null : parsed;
+    // AÑO
+    if (!year && id === 'VEHICLE_YEAR') {
+      const n = parseInt(raw, 10);
+      year = Number.isNaN(n) ? null : n;
     }
 
-    if (!Km && (key.includes('KILOMET') || key.includes('KM'))) {
-      const parsed = parseInt(value.replace(/\D/g, ''), 10);
-      Km = Number.isNaN(parsed) ? null : parsed;
+    // KM
+    if (!Km && id === 'KILOMETERS') {
+      const n = parseInt(raw.replace(/\D/g, ''), 10);
+      Km = Number.isNaN(n) ? null : n;
     }
 
-    if (!Motor && key.includes('MOTOR')) {
-      Motor = value || null;
+    // MOTOR (1.0, 1.6, etc.)
+    if (!Motor && id === 'ENGINE') {
+      Motor = raw || null;
     }
 
-    if (!Caja && key.includes('TRANSMIS')) {
-      Caja = value || null;
+    // Si no vino ENGINE, podemos usar la cilindrada como backup
+    if (!Motor && id === 'ENGINE_DISPLACEMENT') {
+      Motor = raw || null; // o formatear: `1000 cc`
     }
 
-    if (!Combustible && (key.includes('COMBUSTIBLE') || key.includes('FUEL'))) {
-      Combustible = value || null;
+    // CAJA / TRANSMISIÓN
+    if (!Caja && id === 'TRANSMISSION') {
+      Caja = raw || null;
     }
 
-    if (!Puertas && (key.includes('PUERTA') || key.includes('DOOR'))) {
-      const parsed = parseInt(value.replace(/\D/g, ''), 10);
-      Puertas = Number.isNaN(parsed) ? null : parsed;
+    // COMBUSTIBLE
+    if (!Combustible && id === 'FUEL_TYPE') {
+      Combustible = raw || null;
+    }
+
+    // PUERTAS
+    if (!Puertas && id === 'DOORS') {
+      const n = parseInt(raw.replace(/\D/g, ''), 10);
+      Puertas = Number.isNaN(n) ? null : n;
     }
   }
 
   return { brand, year, Km, Motor, Caja, Combustible, Puertas };
 }
+
 
 /**
  * Normaliza un item de ML al formato Vehicle.
