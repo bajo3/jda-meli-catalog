@@ -103,6 +103,8 @@ export default function VehicleDetailClient({ vehicle }: Props) {
                         fill
                         className="object-cover"
                         sizes="(min-width: 1024px) 560px, (min-width: 640px) 90vw, 100vw"
+                        quality={95}
+                        unoptimized
                         priority
                       />
                     </motion.div>

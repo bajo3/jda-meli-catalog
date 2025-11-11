@@ -10,10 +10,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
-      {/* We structure the page so the header is at the top, content fills the available space and footer stays at the bottom */}
-      <body className="min-h-screen flex flex-col bg-[#05030a] text-slate-100">
+      <body className="min-h-screen flex flex-col bg-[#05030a] text-slate-100 overflow-x-hidden">
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 w-full overflow-x-hidden">{children}</main>
         <Footer />
       </body>
     </html>

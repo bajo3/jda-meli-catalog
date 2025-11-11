@@ -101,6 +101,22 @@ function extractVehicleDetails(attributes: any[]): {
 /**
  * Normaliza un item de ML al formato Vehicle.
  */
+/**
+/**
+ * Normaliza las URLs de imágenes de Mercado Libre a la versión original (-O.jpg)
+ */
+function normalizeMeliImageUrl(url: string): string {
+  if (!url) return url
+  // Reemplaza versiones reducidas (-I.jpg, -N.jpg, -C.jpg) por la original (-O.jpg)
+  return url
+    .replace(/-I\./g, '-O.')
+    .replace(/-N\./g, '-O.')
+    .replace(/-C\./g, '-O.')
+}
+
+/**
+ * Normaliza un item de ML al formato Vehicle.
+ */
 function normalizeItem(item: any): Vehicle {
   const { brand, year, Km, Motor, Caja, Combustible, Puertas } =
     extractVehicleDetails(item.attributes || [])
@@ -110,11 +126,13 @@ function normalizeItem(item: any): Vehicle {
   const pictures: string[] = []
   if (Array.isArray(item.pictures)) {
     for (const pic of item.pictures) {
-      if (pic?.secure_url) {
-        pictures.push(pic.secure_url)
-      } else if (pic?.url) {
-        pictures.push(pic.url)
-      }
+      let url = pic?.secure_url || pic?.url
+      if (!url) continue
+
+      // Normalizamos la URL a la versión grande
+      url = normalizeMeliImageUrl(url)
+
+      pictures.push(url)
     }
   }
 
