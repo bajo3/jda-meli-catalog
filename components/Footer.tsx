@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { CONTACT, waLink } from '@/lib/siteConfig'
+import TrackLink from '@/components/TrackLink'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -32,15 +33,16 @@ export default function Footer() {
             </div>
           </div>
 
-          <a
+          <TrackLink
             href={waLink(CONTACT.whatsapp.primary, 'Hola! Quiero cotizar mi próximo auto.')}
             target="_blank"
             rel="noopener noreferrer"
+            trackEvent={{ event_type: 'whatsapp_click', phone: CONTACT.whatsapp.primary, location: 'footer_top_cta' }}
             className="inline-flex items-center gap-2 rounded-2xl border border-fuchsia-500/70 bg-fuchsia-600/10 px-4 py-2 text-xs font-semibold text-fuchsia-100 shadow-[0_0_25px_rgba(244,114,182,0.35)] transition hover:bg-fuchsia-500/30 hover:border-fuchsia-400"
           >
             <span className="text-base">💬</span>
             <span>Escribinos por WhatsApp</span>
-          </a>
+          </TrackLink>
         </div>
 
         {/* Grilla principal */}
@@ -52,21 +54,23 @@ export default function Footer() {
               <li>📍 {CONTACT.address.full}</li>
               <li>
                 📞{' '}
-                <a
+                <TrackLink
                   href={`tel:${CONTACT.phones.primary}`}
+                  trackEvent={{ event_type: 'call_click', phone: CONTACT.phones.primary, location: 'footer' }}
                   className="hover:text-white transition-colors"
                 >
                   +54 9 2494 587046
-                </a>
+                </TrackLink>
               </li>
               <li>
                 📞{' '}
-                <a
+                <TrackLink
                   href={`tel:${CONTACT.phones.secondary}`}
+                  trackEvent={{ event_type: 'call_click', phone: CONTACT.phones.secondary, location: 'footer' }}
                   className="hover:text-white transition-colors"
                 >
                   +54 9 2494 630646
-                </a>
+                </TrackLink>
               </li>
               <li>
                 ✉️{' '}
@@ -87,15 +91,16 @@ export default function Footer() {
             <p className="mt-1 text-xs sm:text-sm">{CONTACT.hours.saturday}</p>
             <p className="mt-1 text-xs sm:text-sm">{CONTACT.hours.sunday}</p>
 
-            <a
+            <TrackLink
               href={waLink(CONTACT.whatsapp.primary, 'Hola! Quiero cotizar mi próximo auto.')}
               target="_blank"
               rel="noopener noreferrer"
+              trackEvent={{ event_type: 'whatsapp_click', phone: CONTACT.whatsapp.primary, location: 'footer_hours_cta' }}
               className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-500/10 px-3 py-1 text-[0.7rem] text-emerald-200 hover:bg-emerald-500/15 transition"
             >
               <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
               ¡Cotiza tu próximo auto con nosotros!
-            </a>
+            </TrackLink>
           </div>
 
           {/* Navegación */}
@@ -147,24 +152,26 @@ export default function Footer() {
                 <span>📘</span>
                 <span>Facebook</span>
               </a>
-              <a
+              <TrackLink
                 href={waLink(CONTACT.whatsapp.primary)}
                 target="_blank"
                 rel="noopener noreferrer"
+                trackEvent={{ event_type: 'whatsapp_click', phone: CONTACT.whatsapp.primary, location: 'footer_social' }}
                 className="inline-flex items-center gap-1 rounded-full border border-white/20 bg-white/5 px-3 py-1.5 hover:border-fuchsia-400 hover:bg-fuchsia-500/10 hover:text-white transition-colors"
               >
                 <span>💬</span>
                 <span>WhatsApp 1</span>
-              </a>
-              <a
+              </TrackLink>
+              <TrackLink
                 href={waLink(CONTACT.whatsapp.secondary)}
                 target="_blank"
                 rel="noopener noreferrer"
+                trackEvent={{ event_type: 'whatsapp_click', phone: CONTACT.whatsapp.secondary, location: 'footer_social' }}
                 className="inline-flex items-center gap-1 rounded-full border border-white/20 bg-white/5 px-3 py-1.5 hover:border-fuchsia-400 hover:bg-fuchsia-500/10 hover:text-white transition-colors"
               >
                 <span>💬</span>
                 <span>WhatsApp 2</span>
-              </a>
+              </TrackLink>
             </div>
           </div>
         </div>

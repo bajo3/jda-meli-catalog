@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { CONTACT, MAPS, waLink } from '@/lib/siteConfig'
+import TrackLink from '@/components/TrackLink'
 
 export const metadata: Metadata = {
   title: 'Contacto - Jesús Díaz Automotores',
@@ -47,19 +48,21 @@ export default function ContactoPage() {
                 </li>
                 <li>
                   <span className="font-semibold text-slate-200">Teléfonos:</span>{' '}
-                  <a
+                  <TrackLink
                     href={`tel:${CONTACT.phones.primary}`}
+                    trackEvent={{ event_type: 'call_click', phone: CONTACT.phones.primary, location: 'contact_phones' }}
                     className="text-fuchsia-400 hover:text-fuchsia-200 hover:underline"
                   >
                     +54 9 2494 587046
-                  </a>{' '}
+                  </TrackLink>{' '}
                   ·{' '}
-                  <a
+                  <TrackLink
                     href={`tel:${CONTACT.phones.secondary}`}
+                    trackEvent={{ event_type: 'call_click', phone: CONTACT.phones.secondary, location: 'contact_phones' }}
                     className="text-fuchsia-400 hover:text-fuchsia-200 hover:underline"
                   >
                     +54 9 2494 630646
-                  </a>
+                  </TrackLink>
                 </li>
                 <li>
                   <span className="font-semibold text-slate-200">Email:</span>{' '}
@@ -73,28 +76,31 @@ export default function ContactoPage() {
               </ul>
 
               <div className="mt-5 grid gap-3 sm:grid-cols-3">
-                <a
+                <TrackLink
                   href={waLink(CONTACT.whatsapp.primary, 'Hola! Quiero cotizar mi próximo auto.')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  trackEvent={{ event_type: 'whatsapp_click', phone: CONTACT.whatsapp.primary, location: 'contact_cta' }}
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-fuchsia-600 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_0_22px_rgba(244,114,182,0.5)] hover:bg-fuchsia-500 transition"
                 >
                   💬 WhatsApp 1
-                </a>
-                <a
+                </TrackLink>
+                <TrackLink
                   href={waLink(CONTACT.whatsapp.secondary, 'Hola! Quiero cotizar mi próximo auto.')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  trackEvent={{ event_type: 'whatsapp_click', phone: CONTACT.whatsapp.secondary, location: 'contact_cta' }}
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-fuchsia-500/60 bg-fuchsia-600/10 px-4 py-2.5 text-sm font-semibold text-fuchsia-100 hover:bg-fuchsia-500/20 transition"
                 >
                   💬 WhatsApp 2
-                </a>
-                <a
+                </TrackLink>
+                <TrackLink
                   href={`tel:${CONTACT.phones.primary}`}
+                  trackEvent={{ event_type: 'call_click', phone: CONTACT.phones.primary, location: 'contact_cta' }}
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-600 px-4 py-2.5 text-sm font-semibold text-slate-100 hover:bg-slate-800 transition"
                 >
                   📞 Llamar
-                </a>
+                </TrackLink>
               </div>
             </div>
 
@@ -145,26 +151,28 @@ export default function ContactoPage() {
                     </a>
                   </li>
                   <li>
-                    <a
+                    <TrackLink
                       href={waLink(CONTACT.whatsapp.primary)}
                       target="_blank"
                       rel="noopener noreferrer"
+                      trackEvent={{ event_type: 'whatsapp_click', phone: CONTACT.whatsapp.primary, location: 'contact_social' }}
                       className="inline-flex items-center gap-2 text-slate-200 hover:text-fuchsia-300 transition"
                     >
                       <span>💬</span>
                       <span>WhatsApp 1</span>
-                    </a>
+                    </TrackLink>
                   </li>
                   <li>
-                    <a
+                    <TrackLink
                       href={waLink(CONTACT.whatsapp.secondary)}
                       target="_blank"
                       rel="noopener noreferrer"
+                      trackEvent={{ event_type: 'whatsapp_click', phone: CONTACT.whatsapp.secondary, location: 'contact_social' }}
                       className="inline-flex items-center gap-2 text-slate-200 hover:text-fuchsia-300 transition"
                     >
                       <span>💬</span>
                       <span>WhatsApp 2</span>
-                    </a>
+                    </TrackLink>
                   </li>
                 </ul>
               </div>
@@ -194,14 +202,15 @@ export default function ContactoPage() {
                 />
               </div>
               <div className="mt-3 flex flex-wrap gap-2 text-xs text-slate-300">
-                <a
+                <TrackLink
                   href={MAPS.openUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  trackEvent={{ event_type: 'maps_click', location: 'contact_map' }}
                   className="inline-flex items-center gap-1 rounded-full border border-slate-600 px-3 py-1 hover:bg-slate-900 transition"
                 >
                   🧭 Abrir en Google Maps
-                </a>
+                </TrackLink>
                 <span className="inline-flex items-center gap-1 rounded-full border border-slate-700 px-3 py-1">
                   🚗 Estacionamiento en la zona
                 </span>

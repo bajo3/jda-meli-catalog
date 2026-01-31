@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import FinancingSimulator from '@/components/FinancingSimulator';
 import { formatVehiclePrice } from '@/lib/vehiclePrice';
 import { CONTACT, waLink } from '@/lib/siteConfig';
+import { track } from '@/lib/analyticsClient';
 
 type Props = {
   vehicle: any;
@@ -71,6 +72,45 @@ export default function VehicleDetailClient({ vehicle }: Props) {
         : null;
 
   const status: string | undefined = vehicle.status ?? vehicle.estado;
+
+  // Track: vista de ficha
+  useEffect(() => {
+    track({
+      event_type: 'vehicle_view',
+      vehicle_id: vehicle?.id ?? null,
+      vehicle_slug: vehicle?.slug ?? null,
+      location: 'vehicle_page',
+      meta: { title: vehicle?.title ?? null },
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [vehicle?.id])
+
+  const handleShare = async () => {
+    const url = `${location.origin}/catalogo/${vehicle?.slug ?? ''}`
+    const title = vehicle?.title ?? 'Vehículo'
+
+    let method: 'native' | 'clipboard' | 'none' = 'none'
+    try {
+      if (navigator.share) {
+        await navigator.share({ title, url })
+        method = 'native'
+      } else if (navigator.clipboard) {
+        await navigator.clipboard.writeText(url)
+        method = 'clipboard'
+        alert('Link copiado al portapapeles')
+      }
+    } catch {
+      // no-op
+    }
+
+    track({
+      event_type: 'share_click',
+      vehicle_id: vehicle?.id ?? null,
+      vehicle_slug: vehicle?.slug ?? null,
+      location: 'vehicle_share',
+      meta: { method, url },
+    })
+  }
 
   return (
     <main className="relative min-h-screen text-slate-100 px-4 py-8 md:py-10">
@@ -301,6 +341,16 @@ export default function VehicleDetailClient({ vehicle }: Props) {
                 href={waLink(CONTACT.whatsapp.primary, `Hola! Estoy interesado en el ${vehicle.title}`)}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() =>
+                  track({
+                    event_type: 'whatsapp_click',
+                    phone: CONTACT.whatsapp.primary,
+                    vehicle_id: vehicle?.id ?? null,
+                    vehicle_slug: vehicle?.slug ?? null,
+                    location: 'vehicle_cta',
+                    meta: { title: vehicle?.title ?? null },
+                  })
+                }
                 className="block w-full rounded-xl bg-fuchsia-600 py-2.5 text-center text-sm font-semibold text-white shadow-lg shadow-fuchsia-800/40 hover:bg-fuchsia-500 transition"
               >
                 💬 Consultar por este vehículo
@@ -309,6 +359,7 @@ export default function VehicleDetailClient({ vehicle }: Props) {
               <motion.button
                 whileTap={{ scale: 0.97 }}
                 className="w-full rounded-xl border border-slate-600 py-2 text-sm text-slate-300 hover:bg-slate-800 transition"
+                onClick={handleShare}
               >
                 🔗 Compartir ficha
               </motion.button>
