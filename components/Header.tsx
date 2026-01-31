@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
+import { CONTACT, waLink } from '@/lib/siteConfig'
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -92,13 +93,13 @@ export default function Header() {
         {/* CTA DESKTOP */}
         <div className="hidden items-center gap-2 md:flex">
           <a
-            href="https://wa.me/5492494621182"
+            href={waLink(CONTACT.whatsapp.primary, 'Hola! Quiero cotizar mi próximo auto.')}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-fuchsia-500/60 bg-fuchsia-600/10 px-3 py-1.5 text-xs font-semibold text-fuchsia-100 shadow-[0_0_20px_rgba(244,114,182,0.35)] transition hover:bg-fuchsia-500/30 hover:border-fuchsia-400"
           >
             <span className="text-base">💬</span>
-            <span>Consultá tu próximo auto</span>
+            <span>¡Cotiza tu próximo auto!</span>
           </a>
         </div>
 
@@ -200,17 +201,27 @@ export default function Header() {
                 </p>
                 <p className="text-xs text-slate-300">
                   Autos seleccionados, atención personalizada y catálogo
-                  conectado a Mercado Libre.
+                  online actualizado.
                 </p>
 
                 <a
-                  href="https://wa.me/5492494587046"
+                  href={waLink(CONTACT.whatsapp.primary, 'Hola! Quiero cotizar mi próximo auto.')}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-2 inline-flex w-full items-center justify-center rounded-2xl bg-fuchsia-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-fuchsia-800/40 transition hover:bg-fuchsia-500"
                   onClick={closeMenu}
                 >
                   💬 Escribinos por WhatsApp
+                </a>
+
+                <a
+                  href={waLink(CONTACT.whatsapp.secondary, 'Hola! Quiero cotizar mi próximo auto.')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-full items-center justify-center rounded-2xl border border-white/20 bg-white/5 px-4 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/10"
+                  onClick={closeMenu}
+                >
+                  💬 WhatsApp 2
                 </a>
               </div>
             </div>

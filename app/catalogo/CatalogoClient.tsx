@@ -63,7 +63,7 @@ export default function CatalogoClient({ vehicles }: Props) {
     window.addEventListener('focus', refresh);
     document.addEventListener('visibilitychange', onVisibility);
 
-    // Also refresh periodically so stock changes in ML appear even if the user stays on the page.
+    // Also refresh periodically so the catalog stays updated even if the user stays on the page.
     const interval = window.setInterval(refresh, 60_000);
 
     return () => {
@@ -175,7 +175,7 @@ export default function CatalogoClient({ vehicles }: Props) {
         <header className="flex flex-col gap-3 border-b border-fuchsia-700/40 pb-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-2xl font-semibold text-white md:text-3xl">Catálogo de vehículos</h1>
-            <p className="mt-1 text-sm text-slate-400">Catálogo conectado a Mercado Libre.</p>
+            <p className="mt-1 text-sm text-slate-400">Catálogo online actualizado.</p>
           </div>
 
           <div className="flex flex-col gap-2 md:items-end">

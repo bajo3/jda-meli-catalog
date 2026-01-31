@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useMotionValue, useTransform } from "framer-motion";
+import { CONTACT, waLink } from "@/lib/siteConfig";
 
 /**
  * 👉 Notas rápidas
@@ -93,7 +94,7 @@ export default function Home() {
 
               <Magnetic intensity={18}>
                 <a
-                  href="https://wa.me/5492494621182"
+                  href={waLink(CONTACT.whatsapp.primary, "Hola! Quiero cotizar mi próximo auto.")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block rounded-xl border border-fuchsia-500/70 px-7 py-3 text-sm font-semibold text-fuchsia-200 transition hover:bg-fuchsia-900/30 hover:shadow-[0_0_30px_rgba(244,114,182,0.2)]"
@@ -161,7 +162,7 @@ export default function Home() {
             {
               k: "Transparencia",
               t: "Información clara",
-              d: "Datos de cada unidad, km, año, fotos reales y precios actualizados desde Mercado Libre.",
+              d: "Datos de cada unidad, km, año, fotos reales y fotos reales y precios actualizados.",
             },
             { k: "Confianza", t: "Asesoramiento real", d: "Te acompañamos en todo el proceso de compra para que sientas seguridad en tu decisión." },
             { k: "Facilidad", t: "Todo desde tu celu", d: "Mirá el catálogo, elegí las unidades que te interesan y escribinos directo por WhatsApp." },

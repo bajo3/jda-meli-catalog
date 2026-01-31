@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { CONTACT, waLink } from '@/lib/siteConfig'
 
 export default function NosotrosClient() {
   return (
@@ -36,13 +37,13 @@ export default function NosotrosClient() {
         <div className="grid gap-8 md:grid-cols-3">
           {[
             {
-              title: '10+ Años de Experiencia',
-              text: 'Una década asesorando a miles de clientes en cada paso de su compra.',
+              title: '15+ Años de Experiencia',
+              text: 'Más de una década asesorando a miles de clientes en cada paso de su compra.',
               icon: '🚗',
             },
             {
-              title: 'Multimarca Premium',
-              text: 'Trabajamos con todas las marcas para ofrecerte opciones reales.',
+              title: 'Multimarca',
+              text: 'Trabajamos con distintas marcas para ofrecerte opciones reales.',
               icon: '🌟',
             },
             {
@@ -89,7 +90,7 @@ export default function NosotrosClient() {
             },
             {
               year: '2025',
-              text: 'Integramos Mercado Libre y herramientas tecnológicas de última generación.',
+              text: 'Renovamos el catálogo online y la atención por WhatsApp para responder más rápido y con mejor info.',
             },
           ].map((item, i) => (
             <motion.div
@@ -122,7 +123,7 @@ export default function NosotrosClient() {
             'Transparencia total en cada operación.',
             'Asesoramiento profesional sin compromisos.',
             'Vehículos seleccionados uno por uno.',
-            'Publicaciones conectadas y actualizadas.',
+            'Catálogo online actualizado.',
             'Financiación, trámites y transferencias.',
             'Acompañamiento real antes, durante y después.',
           ].map((text, i) => (
@@ -145,16 +146,27 @@ export default function NosotrosClient() {
       <section className="text-center py-20">
         <h3 className="text-2xl font-semibold mb-3">¿Querés tu próximo auto?</h3>
         <p className="text-slate-400 mb-6">
-          Estamos para ayudarte a elegir la mejor opción.
+          Escribinos y te asesoramos con opciones reales.
         </p>
-        <a
-          href="https://wa.me/5492494621182"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full bg-fuchsia-600 px-6 py-3 text-white font-semibold shadow-lg shadow-fuchsia-800/40 hover:bg-fuchsia-500 transition"
-        >
-          💬 Consultanos por WhatsApp
-        </a>
+
+        <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a
+            href={waLink(CONTACT.whatsapp.primary, 'Hola! Quiero cotizar mi próximo auto.')}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full bg-fuchsia-600 px-6 py-3 text-white font-semibold shadow-lg shadow-fuchsia-800/40 hover:bg-fuchsia-500 transition"
+          >
+            💬 WhatsApp 1
+          </a>
+          <a
+            href={waLink(CONTACT.whatsapp.secondary, 'Hola! Quiero cotizar mi próximo auto.')}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-slate-100 font-semibold hover:bg-white/10 transition"
+          >
+            💬 WhatsApp 2
+          </a>
+        </div>
       </section>
     </main>
   )

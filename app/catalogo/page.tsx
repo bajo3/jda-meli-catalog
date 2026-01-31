@@ -2,7 +2,7 @@
 import { createClient } from '@supabase/supabase-js';
 import CatalogoClient from './CatalogoClient';
 
-// Always render fresh data so the catalog matches Mercado Libre stock.
+// Always render fresh data so the catalog stays updated.
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 

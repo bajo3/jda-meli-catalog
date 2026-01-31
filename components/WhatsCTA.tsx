@@ -1,5 +1,7 @@
 "use client";
 
+import { CONTACT, waLink } from "@/lib/siteConfig";
+
 export default function WhatsCTA({
   title,
   slug,
@@ -10,11 +12,12 @@ export default function WhatsCTA({
   const href =
     typeof window === "undefined"
       ? "#"
-      : `https://wa.me/5492494621182?text=${encodeURIComponent(
+      : waLink(
+          CONTACT.whatsapp.primary,
           `Hola! Me interesa el ${title}${
             slug ? ` (${location.origin}/catalogo/${slug})` : ""
-          }`
-        )}`;
+          }`,
+        );
 
   return (
     <a

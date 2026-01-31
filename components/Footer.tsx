@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { CONTACT, waLink } from '@/lib/siteConfig'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -26,13 +27,13 @@ export default function Footer() {
                 Jesús Díaz Automotores
               </p>
               <p className="text-xs text-slate-400">
-                Autos seleccionados • Atención personalizada • Catálogo conectado a Mercado Libre
+                Autos seleccionados • Atención personalizada • Catálogo online actualizado
               </p>
             </div>
           </div>
 
           <a
-            href="https://wa.me/5492494587046"
+            href={waLink(CONTACT.whatsapp.primary, 'Hola! Quiero cotizar mi próximo auto.')}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-2xl border border-fuchsia-500/70 bg-fuchsia-600/10 px-4 py-2 text-xs font-semibold text-fuchsia-100 shadow-[0_0_25px_rgba(244,114,182,0.35)] transition hover:bg-fuchsia-500/30 hover:border-fuchsia-400"
@@ -48,28 +49,53 @@ export default function Footer() {
           <div>
             <h2 className="mb-2 text-base font-semibold text-white">Contacto</h2>
             <ul className="space-y-1 text-xs sm:text-sm">
-              <li>📍 Piedrabuena 1578, Tandil</li>
-              <li>📞 2494-587046</li>
-              <li>📞 2494-541756</li>
-              <li>✉️ jesusdiazautomotores@gmail.com</li>
+              <li>📍 {CONTACT.address.full}</li>
+              <li>
+                📞{' '}
+                <a
+                  href={`tel:${CONTACT.phones.primary}`}
+                  className="hover:text-white transition-colors"
+                >
+                  +54 9 2494 587046
+                </a>
+              </li>
+              <li>
+                📞{' '}
+                <a
+                  href={`tel:${CONTACT.phones.secondary}`}
+                  className="hover:text-white transition-colors"
+                >
+                  +54 9 2494 630646
+                </a>
+              </li>
+              <li>
+                ✉️{' '}
+                <a
+                  href={`mailto:${CONTACT.email}`}
+                  className="hover:text-white transition-colors"
+                >
+                  {CONTACT.email}
+                </a>
+              </li>
             </ul>
           </div>
 
           {/* Horarios */}
           <div>
-            <h2 className="mb-2 text-base font-semibold text-white">Horario</h2>
-            <p className="text-xs sm:text-sm">
-              Lunes a Viernes <br />
-              <span className="text-slate-200">9:00 – 13:00</span> y{' '}
-              <span className="text-slate-200">16:00 – 20:00</span>
-            </p>
-            <p className="mt-1 text-xs sm:text-sm">
-              Sábado <span className="text-slate-200">9:00 – 13:00</span>
-            </p>
-            <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-500/10 px-3 py-1 text-[0.7rem] text-emerald-200">
+            <h2 className="mb-2 text-base font-semibold text-white">Horarios</h2>
+            <p className="text-xs sm:text-sm">{CONTACT.hours.weekdays}</p>
+            <p className="mt-1 text-xs sm:text-sm">{CONTACT.hours.saturday}</p>
+            <p className="mt-1 text-xs sm:text-sm">{CONTACT.hours.sunday}</p>
+
+            <a
+              href={waLink(CONTACT.whatsapp.primary, 'Hola! Quiero cotizar mi próximo auto.')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-500/10 px-3 py-1 text-[0.7rem] text-emerald-200 hover:bg-emerald-500/15 transition"
+            >
               <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-              ¡Cotiza tu proximo auto con nosotros!
-            </p>
+              ¡Cotiza tu próximo auto con nosotros!
+            </a>
           </div>
 
           {/* Navegación */}
@@ -122,13 +148,22 @@ export default function Footer() {
                 <span>Facebook</span>
               </a>
               <a
-                href="https://wa.me/5492494621182"
+                href={waLink(CONTACT.whatsapp.primary)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 rounded-full border border-white/20 bg-white/5 px-3 py-1.5 hover:border-fuchsia-400 hover:bg-fuchsia-500/10 hover:text-white transition-colors"
               >
                 <span>💬</span>
-                <span>WhatsApp</span>
+                <span>WhatsApp 1</span>
+              </a>
+              <a
+                href={waLink(CONTACT.whatsapp.secondary)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 rounded-full border border-white/20 bg-white/5 px-3 py-1.5 hover:border-fuchsia-400 hover:bg-fuchsia-500/10 hover:text-white transition-colors"
+              >
+                <span>💬</span>
+                <span>WhatsApp 2</span>
               </a>
             </div>
           </div>
@@ -136,9 +171,7 @@ export default function Footer() {
 
         {/* Strip inferior */}
         <div className="mt-6 flex flex-col items-center justify-between gap-2 border-t border-white/10 pt-4 text-[0.7rem] text-slate-500 sm:flex-row">
-          <span>
-            © {year} Jesús Díaz Automotores. Todos los derechos reservados.
-          </span>
+          <span>© {year} Jesús Díaz Automotores. Todos los derechos reservados.</span>
           <span className="flex items-center gap-2">
             <span className="h-[6px] w-[6px] rounded-full bg-fuchsia-400" />
             <span>Sitio en actualización constante.</span>

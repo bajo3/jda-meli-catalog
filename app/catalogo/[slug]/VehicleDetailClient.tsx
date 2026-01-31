@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import FinancingSimulator from '@/components/FinancingSimulator';
 import { formatVehiclePrice } from '@/lib/vehiclePrice';
+import { CONTACT, waLink } from '@/lib/siteConfig';
 
 type Props = {
   vehicle: any;
@@ -165,7 +166,7 @@ export default function VehicleDetailClient({ vehicle }: Props) {
               <div className="mt-2 flex items-center justify-center text-[0.7rem] text-slate-300 gap-2">
                 <span className="inline-flex items-center gap-1 rounded-full border border-fuchsia-500/40 bg-black/60 px-3 py-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  Asesores 2494-587046 / 2494-541756
+                  Asesores +54 9 2494 587046 / +54 9 2494 630646
                 </span>
               </div>
             </motion.div>
@@ -297,9 +298,7 @@ export default function VehicleDetailClient({ vehicle }: Props) {
             <div className="mt-auto flex flex-col gap-3 pt-2">
               <motion.a
                 whileTap={{ scale: 0.97 }}
-                href={`https://wa.me/5492494621182?text=Hola! Estoy interesado en el ${encodeURIComponent(
-                  vehicle.title,
-                )}`}
+                href={waLink(CONTACT.whatsapp.primary, `Hola! Estoy interesado en el ${vehicle.title}`)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full rounded-xl bg-fuchsia-600 py-2.5 text-center text-sm font-semibold text-white shadow-lg shadow-fuchsia-800/40 hover:bg-fuchsia-500 transition"
