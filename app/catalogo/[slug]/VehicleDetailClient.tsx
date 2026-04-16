@@ -319,12 +319,22 @@ export default function VehicleDetailClient({ vehicle }: Props) {
 
             {/* FINANCIACIÓN */}
             {vehicle.price != null && (
-              <FinancingSimulator
-                price={vehicle.price}
-                title={vehicle.title}
-                year={vehicle.year}
-              />
-
+              <div className="flex flex-col gap-3 mt-2">
+                {/* Encabezado de sección */}
+                <div className="flex flex-col gap-1">
+                  <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-fuchsia-500/50 bg-fuchsia-950/70 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-widest text-fuchsia-300">
+                    <span className="h-1.5 w-1.5 rounded-full bg-fuchsia-400 animate-pulse" />
+                    Financiación disponible
+                  </span>
+                  <p className="text-base font-semibold text-white">Simulá tu crédito</p>
+                  <p className="text-xs text-slate-400">Calculá entrega y cuotas estimadas al instante</p>
+                </div>
+                <FinancingSimulator
+                  price={vehicle.price}
+                  title={vehicle.title}
+                  year={vehicle.year}
+                />
+              </div>
             )}
 
             {/* Notas / descripción si existe */}
