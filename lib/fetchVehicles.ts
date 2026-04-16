@@ -138,7 +138,8 @@ function normalizeItem(item: any): Vehicle {
   const { brand, year, Km, Motor, Caja, Combustible, Puertas } =
     extractVehicleDetails(item.attributes || [])
 
-  const slug = slugify(item.title, { lower: true, strict: true })
+  const slug_base = slugify(item.title, { lower: true, strict: true })
+  const slug = `${slug_base}-${item.id}`
 
   const pictures: string[] = []
   if (Array.isArray(item.pictures)) {
