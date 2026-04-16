@@ -84,34 +84,20 @@ export default function FinancingSimulator({ price, title, year }: Props) {
 
   return (
     <div className="rounded-xl border border-fuchsia-500/30 bg-gradient-to-b from-[#160b28] to-[#0c0416] p-5 shadow-[0_4px_32px_rgba(168,85,247,0.13)]">
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex flex-col gap-2">
-          <div className="flex flex-wrap gap-2">
-            <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[0.72rem] text-slate-300">
-              <span className="text-fuchsia-400 font-bold">↓</span>
-              Entrega mín.&nbsp;<span className="font-semibold text-white">{MIN_DOWN_PCT}%</span>
-            </span>
-            <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[0.72rem] text-slate-300">
-              <span className="text-blue-400 font-bold">↑</span>
-              Financiación máx.&nbsp;<span className="font-semibold text-white">40%</span>
-            </span>
-          </div>
-          {title && (
-            <p className="line-clamp-1 text-xs text-slate-500">{title}</p>
-          )}
-        </div>
-
-        <motion.button
-          whileTap={{ scale: 0.98 }}
-          onClick={simulate}
-          disabled={loading || invalid}
-          className="shrink-0 rounded-lg bg-fuchsia-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-fuchsia-900/50 hover:bg-fuchsia-500 transition disabled:opacity-50"
-        >
-          {loading ? 'Simulando...' : 'Simular'}
-        </motion.button>
+      {/* Info condiciones — contexto rápido */}
+      <div className="mb-4 flex flex-wrap gap-2">
+        <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[0.72rem] text-slate-300">
+          <span className="text-fuchsia-400 font-bold">↓</span>
+          Entrega mín.&nbsp;<span className="font-semibold text-white">{MIN_DOWN_PCT}%</span>
+        </span>
+        <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[0.72rem] text-slate-300">
+          <span className="text-blue-400 font-bold">↑</span>
+          Financiación máx.&nbsp;<span className="font-semibold text-white">40%</span>
+        </span>
       </div>
 
-      <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+      {/* Sliders */}
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div className="rounded-lg border border-fuchsia-500/20 bg-black/40 p-3">
           <p className="text-[0.7rem] uppercase tracking-[0.2em] text-slate-400">Entrega</p>
           <p className="mt-1 text-xl font-bold text-white">{fmtMoney(downAmount, currency)}</p>
@@ -141,6 +127,16 @@ export default function FinancingSimulator({ price, title, year }: Props) {
           Entrega mínima {MIN_DOWN_PCT}%. Ajustá el deslizador para simular.
         </p>
       )}
+
+      {/* CTA principal — full width, ancla visual */}
+      <motion.button
+        whileTap={{ scale: 0.98 }}
+        onClick={simulate}
+        disabled={loading || invalid}
+        className="mt-4 w-full rounded-xl bg-fuchsia-600 py-3.5 text-base font-bold text-white shadow-lg shadow-fuchsia-900/60 hover:bg-fuchsia-500 active:scale-[0.99] transition disabled:opacity-50"
+      >
+        {loading ? 'Calculando...' : 'Ver cuotas estimadas →'}
+      </motion.button>
 
       {error && <p className="mt-3 text-xs text-red-300">{error}</p>}
 
