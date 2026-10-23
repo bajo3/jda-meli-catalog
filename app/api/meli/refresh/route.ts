@@ -1,22 +1,11 @@
 import { NextResponse } from 'next/server';
-import { refreshAccessToken } from '@/lib/meliAuth';
 
+// Sólo servía a la importación desde Mercado Libre, que quedó desactivada.
 export async function GET() {
-  try {
-    const token = await refreshAccessToken();
-    return NextResponse.json({
-      ok: true,
-      expires_at: token.expires_at,
-      now: Date.now(),
-    });
-  } catch (error: any) {
-    console.error('Error en /api/meli/refresh:', error);
-    return NextResponse.json(
-      { ok: false, error: error.message || 'Error desconocido' },
-      { status: 500 }
-    );
-  }
+  return NextResponse.json(
+    { ok: false, error: 'Importación desde Mercado Libre desactivada: el catálogo lo actualiza JD-Auto.' },
+    { status: 410 },
+  );
 }
 
-// también podés permitir POST si querés
 export const POST = GET;
