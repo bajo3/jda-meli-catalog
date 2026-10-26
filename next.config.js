@@ -1,4 +1,15 @@
 /** @type {import('next').NextConfig} */
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+let supabaseHostname = '*.supabase.co'
+
+if (supabaseUrl) {
+  try {
+    supabaseHostname = new URL(supabaseUrl).hostname
+  } catch {
+    // Mantener el patrón de Supabase para que el build no dependa de una URL válida.
+  }
+}
+
 const nextConfig = {
   images: {
     // `domains` esta deprecado -> remotePatterns
@@ -12,6 +23,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**.mlstatic.com',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: supabaseHostname,
+        pathname: '/storage/v1/object/public/**',
       },
     ],
 

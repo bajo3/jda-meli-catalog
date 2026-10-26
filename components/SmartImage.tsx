@@ -26,6 +26,7 @@ type Props = Omit<ImageProps, 'src'> & {
  */
 export default function SmartImage({ src, variant = 'full', sizes, fill, ...rest }: Props) {
   const remote = isMeliImage(src);
+  const publicStorage = /^https:\/\/[^/]*\.supabase\.co\/storage\/v1\/object\/public\//i.test(src);
   const finalSrc = remote ? meliImage(src, variant) : src;
 
   // Guard: `fill` sin `sizes` -> Next genera todos los anchos.
@@ -37,7 +38,7 @@ export default function SmartImage({ src, variant = 'full', sizes, fill, ...rest
       src={finalSrc}
       fill={fill}
       sizes={finalSizes}
-      unoptimized={remote || rest.unoptimized}
+      unoptimized={remote || publicStorage || rest.unoptimized}
     />
   );
 }
